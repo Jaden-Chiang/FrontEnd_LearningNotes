@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LunBo Tu</title>
+</head>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    #background {
+        height: 450px;
+        width: 600px;
+        background-color: rgb(238, 235, 235);
+        margin-top: 10px;
+        margin-left: 300px;
+        padding-top: 50px;
+        overflow: hidden;
+        position: absolute;
+    }
+
+    #ul-pic {
+        height: 400px;
+        margin-left: 50px;
+
+
+    }
+
+    #ul-pic li {
+        float: left;
+    }
+
+    img {
+        width: 500px;
+        height: 400px;
+        position: absolute;
+    }
+
+    #ul-div {
+        display: inline-block;
+        position: absolute;
+        bottom: 10px;
+        left: 200px;
+
+    }
+
+    #ul-div li {
+        float: left;
+    }
+
+    .button {
+        height: 15px;
+        width: 15px;
+        background-color: red;
+        border: 2px solid black;
+        margin-right: 20px;
+
+    }
+</style>
+
+<script>
+    window.onload = function () {
+        // 给五张图片设置内容及初始位置
+        function setPic(id, link, left) {
+            var pic = document.getElementById(id);
+            pic.src = link;
+            pic.style.left = left;
+        };
+        setPic("pic1", "https://img30.360buyimg.com/pop/s1180x940_jfs/t1/118242/27/25933/100194/6278c353E070712ff/31a8802e2e3a6aca.jpg.webp", "50px");
+        setPic("pic2", "https://img13.360buyimg.com/pop/s1180x940_jfs/t1/112061/27/2335/89721/5ea131acE198d296c/c8b2b45c0c151946.jpg.webp", "600px");
+        setPic("pic3", "https://img10.360buyimg.com/pop/s1180x940_jfs/t1/105731/31/21746/22517/627baf44E69c87e9f/6dc242ae77ef92d2.jpg.webp", "1150px");
+        setPic("pic4", "https://imgcps.jd.com/ling4/67287564798/5Lqs6YCJ5aW96LSn/5L2g5YC85b6X5oul5pyJ/p-5f3a47329785549f6bc7a6eb/617872a7/cr/s/q.jpg", "1700px");
+        setPic("pic5", "https://imgcps.jd.com/ling4/10047246675523/5Lqs6YCJ5aW96LSn/5L2g5YC85b6X5oul5pyJ/p-5f3a47329785549f6bc7a6e3/2d1e5c49/cr/s/q.jpg", "2250px");
+
+        var timer1;
+        // 设置轮播动画
+        function move(id, time) {
+            var pic = document.getElementById(id);
+            timer1 = setInterval(function () {
+                pic.style.left = pic.offsetLeft - 5 + "px";
+
+                if (pic.offsetLeft < -550) {
+                    pic.style.left = "2200px";
+                }
+            }, time);
+
+        };
+
+        move("pic1", 50);
+        move("pic2", 50);
+        move("pic3", 50);
+        move("pic4", 50);
+        move("pic5", 50);
+
+        clearInterval(timer1);
+
+        // 设置点击按钮后跳转图片，并且2s后开始轮播
+        // 切换图片采用快速滚动的方式
+        // function changePic(btn) {
+        //     // 将按钮对应到图片
+        //     var pic = document.getElementById("pic" + btn.charAt(3));
+        //     var btn = document.getElementById(btn);
+        //     btn.onclick = setInterval(function () {
+        //         clearInterval(timer1);
+        //         pic.style.left = pic.offsetLeft - 50 + "px";
+
+        //         if (pic.style.left == 50) {
+        //             alert("Welcome to choose " + pic);
+        //             clearInterval(btn.onclick);
+        //             timer1();
+        //         }
+        //     }, 20);
+        // }
+
+        // 设置点击按钮
+        var btns = document.getElementsByClassName("button");
+        for (var i = 0; i < btns.length; i++) {
+            btns[i].onclick = function () {
+                move("pic1", 50);
+                move("pic2", 50);
+                move("pic3", 50);
+                move("pic4", 50);
+                move("pic5", 50);
+                var targetPic = document.getElementById("pic" + i);
+                console.log(targetPic);
+                if (targetPic.offset <= 50) {
+                    console.log("here");
+                    clearInterval(timer1);
+                }
+            };
+        };
+
+    };
+
+</script>
+
+<body>
+    <div id="background">
+        <ul id="ul-pic">
+            <li>
+                <img alt="picture1" id="pic1">
+            </li>
+            <li><img src="" alt="pic2" id="pic2"></li>
+            <li><img src="" alt="pic3" id="pic3"></li>
+            <li><img src="" alt="pic4" id="pic4"></li>
+            <li><img src="" alt="pic5" id="pic5"></li>
+        </ul>
+
+        <ul id="ul-div">
+            <li>
+                <div class="button" id="btn1"></div>
+            </li>
+            <li>
+                <div class="button" id="btn2"></div>
+            </li>
+            <li>
+                <div class="button" id="btn3"></div>
+            </li>
+            <li>
+                <div class="button" id="btn4"></div>
+            </li>
+            <li>
+                <div class="button" id="btn5"></div>
+            </li>
+        </ul>
+    </div>
+</body>
+
+</html>

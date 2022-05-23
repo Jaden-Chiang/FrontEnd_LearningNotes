@@ -1,0 +1,35 @@
+/* 公共样式 */
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.clearfix::before,
+.clearfix::after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+body {
+    font-size: 14px;
+    font-family: '仿宋', 'Times New Roman', Times, monospace;
+    color: #333;
+    /* 设置最低宽度（页面宽度小于1226px时，仍为1226px） */
+    min-width: 1226px;
+}
+
+/* 设置一个类，用来表示中间容器的宽度 */
+.w {
+    /* 固定容器的宽度 */
+    width: 1226px;
+    /* 设置容器的位置 */
+    margin: 0 auto;
+}
+
+/* 去掉a的下划线 */
+a {
+    text-decoration: none;
+    color: #b0b0b0;
+}

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>03 网易新闻右侧列表</title>
+    <!-- 取自尚硅谷_H5&C3基础_57_网易新闻右侧列表 -->
+
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .box_outer {
+            width: 300px;
+            height: 320px;
+            background-color: azure;
+            margin: 20px auto;
+        }
+
+        /* 添加上方横线 */
+        .line_down {
+            height: 2px;
+            background-color: gray;
+        }
+
+        .line_on {
+            height: 2px;
+            width: 100px;
+            margin-left: 0px;
+            background-color: red;
+        }
+
+        /* 设置军事·航空的格式 */
+        a:visited,
+        a:link {
+            color: black;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        a:hover {
+            color: red;
+        }
+
+        .titles {
+            margin-top: 5px;
+        }
+
+        /* 设置图片格式 */
+        .picture {
+            width: 98%;
+            margin-top: 10px;
+            margin-left: 1%;
+        }
+
+        /* 设置图片标题格式 */
+        .img_title {
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            margin-top: -35px;
+            margin-left: 3%;
+        }
+
+        /* 设置小新闻格式 */
+        ul {
+            list-style: square;
+            list-style-position: inside;
+
+        }
+
+        li {
+            color: #646464;
+            font-size: 14px;
+            line-height: 28px;
+        }
+
+        li:hover {
+            color: red;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="box_outer">
+        <!-- 上方横线 -->
+        <div class="line_down">
+            <div class="line_on">
+            </div>
+        </div>
+
+        <!-- 军事航空超链接 -->
+        <div class="titles">
+            <span class="title">
+                <a href="https://war.163.com/">军事</a>
+            </span>
+            <span>
+                ·
+            </span>
+            <span class="title">
+                <a href="https://news.163.com/air/">航空</a>
+            </span>
+        </div>
+
+        <!-- 设置图片 -->
+        <div class="pic">
+            <a href="https://war.163.com/photoview/4T8E0001/2313446.html"><img
+                    src="https://cms-bucket.ws.126.net/2022/0224/f788e2bej00r7sdrh001zc000s600e3c.jpg?imageView&thumbnail=300y150&type=webp"
+                    alt="" class="picture"></a>
+        </div>
+
+        <!-- 设置图片标题 -->
+        <div>
+            <p class="img_title">图片标题</p>
+        </div>
+        <!-- 设置下方小新闻 -->
+        <div>
+            <ul>
+                <li>乌克兰征召预备役 顿巴斯地区民众报名登记</li>
+                <li>重炮在列！实拍俄罗斯大军开往顿巴斯</li>
+                <li>乌克兰上空空荡荡 全球民航业恐惧再现</li>
+                <li>航空百年 | 身处上海市区的两座机场</li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,27 @@
+/* 公共样式 */
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.clearfix::before,
+.clearfix::after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+body {
+    font-size: 14px;
+    font-family: '中兴正圆', 'Times New Roman', Times, monospace;
+    color: #333;
+}
+
+a {
+    color: #333;
+    text-decoration: none;
+}
+
+
+

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>05 京东轮播图</title>
+    <!-- 取自尚硅谷_H5&C3基础_75_京东轮播图练习 -->
+
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+            list-style: none;
+        }
+
+        .img-list {
+            margin: 100px auto;
+            width: 590px;
+            height: 470px;
+            /* ul开启相对定位，目的是使ul中的pointer可以相对于ul定位，而不是相对于初始包含块定位 */
+            position: relative;
+        }
+
+        /* 设置li */
+        .img-list li {
+            position: absolute;
+        }
+
+        img {
+            width: 590px;
+            height: 470px;
+        }
+
+        /* 通过修改元素的层级来显示指定的图片 */
+        .img-list li:nth-child() {
+            z-index: 1;
+        }
+
+        /* 设置导航点的样式 */
+        .pointer {
+            position: absolute;
+            /* 确保点在最上面 */
+            z-index: 9999;
+            bottom: 20px;
+            left: 40px;
+        }
+
+        .pointer a {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.6);
+            float: left;
+            margin-left: 15px;
+            /* transpoint 表示透明 */
+            border: 5px solid transparent;
+            /* 将背景颜色设置到内容区，边框和内边距不再有背景颜色 */
+            background-clip: content-box;
+        }
+
+        .pointer a:hover {
+            background-color: white;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            border: 5px solid rgba(112, 111, 111, 0.6);
+        }
+    </style>
+</head>
+
+<body>
+    <ul class="img-list">
+        <li><a href="javascript:;"><img
+                    src="https://img10.360buyimg.com/babel/s1180x940_jfs/t1/210395/2/18306/85375/621edeaaE8e7a6524/1f9dbf74800f4f9c.jpg.webp"
+                    alt=""></a></li>
+        <li><a href="javascript:;"><img
+                    src="https://imgcps.jd.com/img-cubic/creative_server_cia_jdcloud/v2/2000366/100022715464/FocusFullshop/CkRqZnMvdDEvMTcyMzE4LzMxLzE5NTQzLzU3MjIyNy82MGVlOGFlYkUwM2QzZDkxOS8yZDFjM2ZhMzE0OWIyYTY0LnBuZxIJMi10eV8wXzUzMAI47ot6QhoKFuenkeminOawj-Wll-ijhS_npLznm5IQAEITCg_lhajmsJHmiqLotK3kuK0QAUIQCgznq4vljbPmiqLotK0QAkIKCgblipvojZAQB1jIiMbO9AI/cr/s/q.jpg"
+                    alt=""></a></li>
+        <li><a href="javascript:;"><img
+                    src="https://imgcps.jd.com/img-cubic/creative_server_cia_jdcloud/v2/2000366/100022410908/FocusFullshop/CkRqZnMvdDEvMTcxOTYwLzM4LzE4ODgwLzE1MjY0OC82MGU2YmRhYUVmM2E1MTc5My9lM2FhYTVjNTQ1NjJkZmIzLnBuZxIJMy10eV8wXzU0MAI47ot6QhYKEuaCpuacqOS5i-a6kOa0gemdohAAQhMKD-WunuaDoOS5kOS4jeWBnBABQhAKDOeri-WNs-aKoui0rRACQgoKBuS8mOmAiRAHWJy9s870Ag/cr/s/q.jpg"
+                    alt=""></a></li>
+        <li><a href="javascript:;"><img
+                    src="https://imgcps.jd.com/ling4/10533145155/5Lqs6YCJ5aW96LSn/5L2g5YC85b6X5oul5pyJ/p-5bd8253082acdd181d02fa71/23655347/cr/s/q.jpg"
+                    alt=""></a></li>
+        <li><a href="javascript:;"><img
+                    src="https://imgcps.jd.com/img-cubic/creative_server_cia/v2/2000366/100025145132/FocusFullshop/CkNqZnMvdDEvNDk2OTcvMjYvMTcwOTgvMjk2NDk4LzYxNDFiNmQwRTdiZTM2Y2RlL2IwYjJjYmFhNWU5ZmY1Y2EucG5nEgk0LXR5XzBfNTUwAjjui3pCFwoT5YCp56Kn5aWX6KOFL-ekvOebkhAAQhAKDOmSnOaDoOeZu-WcuhABQhAKDOeri-WNs-aKoui0rRACQgoKBuS8mOmAiRAHWKyu2s_0Ag/cr/s/q.jpg"
+                    alt=""></a></li>
+        <li><a href="javascript:;"><img
+                    src="https://img11.360buyimg.com/pop/s1180x940_jfs/t1/212097/37/13583/97106/621d875dE212a7793/1709e369162ec452.jpg.webp"
+                    alt=""></a></li>
+        <li><a href="javascript:;"><img
+                    src="https://img14.360buyimg.com/pop/s1180x940_jfs/t1/149697/38/24175/56836/620b9a5cE0cac8e57/c0d9d062d5374ac8.jpg.webp"
+                    alt=""></a></li>
+        <li><a href="javascript:;"><img
+                    src="https://imgcps.jd.com/ling4/67059886065/5Lqs6YCJ5aW96LSn/5L2g5YC85b6X5oul5pyJ/p-5bd8253082acdd181d02fa06/1a78406d/cr/s/q.jpg"
+                    alt=""></a></li>
+
+        <div class="pointer">
+            <a href="javascript:;"></a><a href="javascript:;"></a><a href="javascript:;"></a><a
+                href="javascript:;"></a><a href="javascript:;"></a><a href="javascript:;"></a><a
+                href="javascript:;"></a><a href="javascript:;"></a>
+        </div>
+    </ul>
+</body>
+
+</html>

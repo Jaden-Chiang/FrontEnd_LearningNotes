@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>定时器的应用（二）</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box1 {
+            height: 100px;
+            width: 100px;
+            background-color: yellowgreen;
+            position: absolute;
+        }
+    </style>
+
+    <script>
+        window.onload = function () {
+            var box1 = document.getElementById("box1");
+            var btn1 = document.getElementById("btn1");
+            var speed = 20;
+            var timer;
+
+            // 创建函数
+            // 参数：obj：要执行动画的对象；target: 执行动画的目标位置；speed: 移动的速度; 
+            function moveDiv(obj, target, speed,) {
+                clearInterval(timer);
+                timer = setInterval(function () {
+                    obj.style.left = obj.offsetLeft + speed + "px";
+                    if ((speed > 0 && obj.offsetLeft >= target) || (speed < 0 && obj.offsetLeft < target)) {
+                        speed = 0;
+                    }
+
+                    if (obj.offsetLeft == target) {
+                        clearInterval(timer);
+                    }
+                }, 30);
+            };
+
+            //点击按钮1以后，使box1向右移动
+            btn1.onclick = function () {
+                moveDiv(box1, 1000, 10);
+            };
+
+            //点击按钮2以后，使box1向左移动
+            btn2.onclick = function () {
+                moveDiv(box1, 200, -20);
+            };
+        };
+    </script>
+</head>
+
+<body>
+    <button id="btn1" style="margin-bottom: 100px;">Click here to move div to right</button>
+    <button id="btn2" style="margin-bottom: 100px;">Click here to move div to left</button>
+    <div id="box1"></div>
+</body>
+
+</html>

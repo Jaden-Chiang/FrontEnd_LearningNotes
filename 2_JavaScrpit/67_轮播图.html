@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>轮播图</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #outer {
+            width: 520px;
+            height: 333px;
+            margin: 50px auto;
+            background-color: yellowgreen;
+            padding: 10px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #imgList {
+            list-style: none;
+            /* 设置ul宽度 */
+            /* 写固定不好，应该可以按照图片数量来设置 */
+            /* width: 2600px; */
+
+            /* 开启绝对定位 */
+            position: absolute;
+            /* 设置偏移量 */
+            /* 每向左移动520个像素，就会显示到下一张图片 */
+            left: 0px;
+        }
+
+        #imgList li {
+            float: left;
+            margin: 0 10px;
+        }
+
+        img {
+            width: 500px;
+            height: 313px;
+        }
+
+        #navDiv {
+            position: absolute;
+            /* 定位 */
+            bottom: 10px;
+            /* left: 197px; */
+        }
+
+        #navDiv a {
+            width: 15px;
+            height: 15px;
+            background-color: red;
+            float: left;
+            margin: 0 5px;
+            /* 设置透明 */
+            opacity: 0.5;
+        }
+
+        /* 设置鼠标移入效果 */
+        #navDiv a:hover {
+            background-color: black;
+        }
+    </style>
+
+    <script>
+        window.onload = function () {
+            // 设置imgList宽度
+            var imgList = document.getElementById("imgList");
+
+            // 获取页面中所有的img标签
+            var imgArr = document.getElementsByTagName("img");
+            imgList.style.width = imgArr.length * 520 + "px";
+
+            // 设置导航按钮居中
+            var imgDiv = document.getElementById("navDiv");
+            var outer = document.getElementById("outer");
+            // 设置navDiv的left值
+            navDiv.style.left = (outer.offsetWidth - navDiv.offsetWidth) / 2 + "px";
+
+            // 设置登录网页后默认选中的a
+            var index = 0;
+            // 获取所有的a
+            var allA = document.getElementsByTagName("a");
+            // 设置默认选中效果
+            allA[index].style.backgroundColor = "black";
+
+            // 点击超链接切换到指定的图片
+            // 为所有的超链接绑定单击响应函数
+            for (var i = 0; i < allA.length; i++) {
+                // 为每一个超链接都添加一个num属性
+                allA[i].num = i;
+                allA[i].onclick = function () {
+                    // 获取点击超链接的索引，并将其设置为index
+                    index = this.num;
+
+                    // 切换图片
+                    // imgList.style.left = -520 * index + "px";
+
+                    setA();
+
+                    // 设置move函数
+                    function move(obj, target, speed) {
+                        clearInterval(timer);
+
+                        var imgList = document.getElementById("imgList");
+
+                        var current = imgList.offsetLeft;
+
+                        // 如果current>target,则imgList向左；否则向左
+                        var direction;
+                        current > imgList ? 'direction = "left"' : 'direction = "right"';
+
+                        var timer = setInterval(function () {
+                            if (current > target) {
+                                imgList.style.left = imgList.offsetLeft - speed + "px";
+                            } else {
+                                imgList.style.left = imgList.offsetLeft + speed + "px";
+                            }
+
+                            if (imgList.offsetLeft == target) {
+                                clearInterval(timer);
+                            }
+                        }, 30);
+                    }
+
+                    move(imgList, -520 * index, 20, function () { });
+                };
+            }
+
+            function setA() {
+                for (var i = 0; i < allA.length; i++) {
+                    allA[i].style.backgroundColor = "";
+                }
+
+                // 修改正在选中的a
+                allA[index].style.backgroundColor = "black";
+
+
+                function getStyle(obj, name) {
+
+                    if (window.getComputedStyle) {
+                        //正常浏览器的方式，具有getComputedStyle()方法
+                        return getComputedStyle(obj, null)[name];
+                    } else {
+                        //IE8的方式，没有getComputedStyle()方法
+                        return obj.currentStyle[name];
+                    }
+
+                }
+            }
+        };
+    </script>
+</head>
+
+<body>
+    <!-- 创建一个外部的div -->
+    <div id="outer">
+        <!-- 创建一个ul，用于放置图片 -->
+        <ul id="imgList">
+            <li><img
+                    src="https://img30.360buyimg.com/pop/s1180x940_jfs/t1/118242/27/25933/100194/6278c353E070712ff/31a8802e2e3a6aca.jpg.webp">
+            </li>
+            <li><img
+                    src="https://img13.360buyimg.com/pop/s1180x940_jfs/t1/112061/27/2335/89721/5ea131acE198d296c/c8b2b45c0c151946.jpg.webp">
+            </li>
+            <li><img
+                    src="https://img10.360buyimg.com/pop/s1180x940_jfs/t1/105731/31/21746/22517/627baf44E69c87e9f/6dc242ae77ef92d2.jpg.webp">
+            </li>
+            <li><img
+                    src="https://imgcps.jd.com/ling4/67287564798/5Lqs6YCJ5aW96LSn/5L2g5YC85b6X5oul5pyJ/p-5f3a47329785549f6bc7a6eb/617872a7/cr/s/q.jpg">
+            </li>
+            <li><img
+                    src="https://imgcps.jd.com/ling4/10047246675523/5Lqs6YCJ5aW96LSn/5L2g5YC85b6X5oul5pyJ/p-5f3a47329785549f6bc7a6e3/2d1e5c49/cr/s/q.jpg">
+            </li>
+        </ul>
+
+        <!-- 创建导航按钮 -->
+        <div id="navDiv">
+            <a href="javascript:;"></a>
+            <a href="javascript:;"></a>
+            <a href="javascript:;"></a>
+            <a href="javascript:;"></a>
+            <a href="javascript:;"></a>
+        </div>
+    </div>
+</body>
+
+</html>
