@@ -1,24 +1,48 @@
-nums = [-2, -2, 1, 1, 4, 1, 4, 4, -4, -2];
+var grid = [
+    ["1", "1", "1", "1", "0"],
+    ["1", "1", "0", "1", "0"],
+    ["1", "1", "0", "0", "0"],
+    ["0", "0", "0", "0", "0"]
+]
 
-/**
- * @param {number[]} nums
- * @return {number}
- */
-var singleNumber = function (nums) {
-    nums.sort();
-    console.log(nums)
+var numIslands = function (grid) {
+    // 记录最终结果
+    var res = 0;
+    // 如果grid为空，则直接返回
+    if (grid == null) return res;
 
-    for (var i = 0; i < nums.length; i++) {
-        // 如果i位置的元素和i+1位置的元素相等，直接跳过
-        if (nums[i] == nums[i + 1]) {
-            i += 2;
-        } else if (i = nums.length - 1) {
-            return nums[i];
-        } else {
-            return nums[i];
+    // 获取grid的宽和高
+    const m = grid.length;
+    const n = grid[0].length;
+
+    for (var i = 0; i < m; i++) {
+        for (var j = 0; j < n; j++) {
+            if (grid[i][j] == 1) {
+                dfs(grid, i, j);
+                res++;
+            }
         }
+    }
+
+    return res;
+};
+
+var dfs = function (grid, posi, posj) {
+    if (!isInGird(grid, posi, posj)) return;
+    if (grid[posi][posj] != 1) return;
+    grid[posi][posj] = 2;
+    dfs(grid, posi - 1, posj);
+    dfs(grid, posi + 1, posj);
+    dfs(grid, posi, posj - 1);
+    dfs(grid, posi, posj + 1);
+};
+
+var isInGird = function (grid, posi, posj) {
+    if (0 <= posi < grid.length && 0 <= posj < grid[0].length) {
+        return true;
+    } else {
+        return false;
     }
 };
 
-var res = singleNumber(nums);
-console.log(res);
+console.log(numIslands(grid));
