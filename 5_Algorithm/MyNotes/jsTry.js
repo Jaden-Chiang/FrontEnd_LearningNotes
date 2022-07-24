@@ -38,7 +38,7 @@ var dfs = function (grid, posi, posj) {
 };
 
 var isInGird = function (grid, posi, posj) {
-    if (0 <= posi < grid.length && 0 <= posj < grid[0].length) {
+    if (0 <= posi && posi < grid.length && 0 <= posj && posj < grid[0].length) {
         return true;
     } else {
         return false;
