@@ -1,78 +1,68 @@
-var grid = [
-    ["1", "1", "1", "1", "0"],
-    ["1", "1", "0", "1", "0"],
-    ["1", "1", "0", "0", "0"],
-    ["0", "0", "0", "0", "0"]
-];
+/**
+ * @param {string} beginWord
+ * @param {string} endWord
+ * @param {string[]} wordList
+ * @return {number}
+ */
 
-class UnionFind {
-    constructor(n) { //构造一个节点数为n的集合
-        this.count = n //并查集总数
-        this.parent = new Array(n)
-        this.size = new Array(n)  // size数组记录着每棵树的重量
-        for (let i = 0; i < n; i++) {
-            this.parent[i] = i; // 自己是自己的parent
-            this.size[i] = 1;	//每个集合上节点的数量
+let beginWord = "hit";
+let endWord = "cog";
+let wordList = ["hot", "dot", "dog", "lot", "log", "cog"];
+
+
+/**
+ * @param {string} beginWord
+ * @param {string} endWord
+ * @param {string[]} wordList
+ * @return {number}
+ */
+var ladderLength = function (beginWord, endWord, wordList) {
+
+    // 获取单词的长度，本题中len是常量
+    const len = beginWord.length;
+
+    // 判断两个单词是否只相差一个字母
+    var getDiff = function (a, b) {
+        let flag = 0;
+        for (var i = 0; i < len; i++) {
+            if (a.charAt(i) != b.charAt(i)) flag++;
+            if (flag > 1) return false;
         }
-    }
+        return true;
+    };
 
-    union(p, q) { //连通结点p和结点q, p和q都是索引
-        let rootP = this.find(p);
-        let rootQ = this.find(q);
-        if (rootP === rootQ) return
-        // 元素数量小的接到数量多的下面，这样比较平衡
-        if (this.size[rootP] > this.size[rootQ]) {
-            this.parent[rootQ] = rootP;
-            this.size[rootP] += this.size[rootQ];
-        } else {
-            this.parent[rootP] = rootQ;
-            this.size[rootQ] += this.size[rootP];
-        }
-        this.count--;
-    }
-
-    isConnected(p, q) { //判断p,q是否连通
-        return this.find(p) === this.find(q)
-    }
-
-    find(x) { //找到x结点的root
-        while (this.parent[x] != x) {
-            // 进行路径压缩
-            this.parent[x] = this.parent[this.parent[x]];
-            x = this.parent[x];
-        }
-        return x;
-    }
-
-    getCount() { //返回子集个数
-        return this.count;
-    }
-}
-
-var numIslands = function (grid) {
-    let m = grid.length
-    if (m === 0) return 0
-    let n = grid[0].length
-    const dummy = -1
-    const dirs = [[1, 0], [0, 1]]//方向数组 向右 向下
-    const uf = new UnionFind(m * n)
-    for (let x = 0; x < m; x++) {
-        for (let y = 0; y < n; y++)
-            if (grid[x][y] === '0') {//如果网格是0，则和dummy合并
-                uf.union(n * x + y, dummy)
-            }
-            else if (grid[x][y] === '1') {//如果网格是1，则向右 向下尝试
-                for (let d of dirs) {
-                    let r = x + d[0]
-                    let c = y + d[1]
-                    if (r >= m || c >= n) continue //坐标合法性
-                    if (grid[r][c] === '1') { //当前网格的右边 下面如果是1，则和当前网格合并
-                        uf.union(n * x + y, n * r + c)
+    /*
+    * @param{array} findlist: 需要查找的单词列表
+    * @param{set} wordSet: 目前有的单词集合
+    * @param{number} res: 结果
+    * @return{number} res
+     */
+    var findWay = function (findList, wordSet, result) {
+        while (wordSet.size != 0) {
+            result++;
+            let findTimes = findList.length;
+            for (var i = 0; i < findTimes; i++) {
+                for (var checkWord of wordSet.keys()) {
+                    if (getDiff(checkWord, findList[i])) {
+                        findList.push(checkWord);
+                        wordSet.delete(checkWord);
                     }
                 }
             }
-    }
-    return uf.getCount()  //返回并查集的个数减一就行
+            findList.splice(0, findTimes);
+        }
+
+        return result;
+    };
+
+    // 根据单词列表创建集合
+    const wordSet = new Set(wordList);
+    let res = 0;
+    // 如果endWord不在wordList中，直接返回0，否则将直接删除
+    if (wordSet.delete(endWord) === false) return res;
+    res = findWay([beginWord], wordSet, res);
+
+    return res;
 };
 
-console.log(numIslands(grid));
+console.log(ladderLength(beginWord, endWord, wordList));
