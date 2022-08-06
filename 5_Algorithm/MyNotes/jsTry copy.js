@@ -5,9 +5,9 @@
  * @return {number}
  */
 
-let beginWord = "hit";
-let endWord = "cog";
-let wordList = ["hot", "dot", "dog", "lot", "log", "cog"];
+let beginWord = "hot";
+let endWord = "dog";
+let wordList = ["cog", "dog", "tot", "hog", "hop", "pot", "dot"];
 
 
 /**
@@ -37,7 +37,7 @@ var ladderLength = function (beginWord, endWord, wordList) {
     * @param{number} res: 结果
     * @return{number} res
      */
-    var findWay = function (findList, wordSet, result) {
+    var findWay = function (findList, wordSet, endWord, result) {
         while (wordSet.size != 0) {
             result++;
             let findTimes = findList.length;
@@ -52,7 +52,14 @@ var ladderLength = function (beginWord, endWord, wordList) {
             findList.splice(0, findTimes);
         }
 
-        return result;
+        for (var i = 0; i < findList.length; i++) {
+            if (getDiff(endWord, findList[i])) {
+                result += 2;
+                return result;
+            }
+        }
+
+        return 0;
     };
 
     // 根据单词列表创建集合
@@ -60,7 +67,9 @@ var ladderLength = function (beginWord, endWord, wordList) {
     let res = 0;
     // 如果endWord不在wordList中，直接返回0，否则将直接删除
     if (wordSet.delete(endWord) === false) return res;
-    res = findWay([beginWord], wordSet, res);
+    // 如果beginWord和endWord直接符合条件，则返回2
+    if (getDiff(beginWord, endWord)) return 2;
+    res = findWay([beginWord], wordSet, endWord, res);
 
     return res;
 };

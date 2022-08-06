@@ -42,8 +42,13 @@ var list = ["lit", "lot", "let"];
 // console.log(isContain("let", list));
 
 // 判断列表中有无单词
-const set1 = new Set(list);
-for (var key of set1.keys()) {
-    console.log(key);
-}
+// const set1 = new Set(list);
+// for (var key of set1.keys()) {
+//     console.log(key);
+// }
 
+var test = function (num) {
+    return (num++);
+};
+
+console.log(test(1));
