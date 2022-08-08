@@ -42,6 +42,8 @@ $1+2+3+···+(n-2)+(n-1) = \frac{n*(n-1)}{2}$
 ### 1.3 简单选择排序
 - **简单选择排序法（Simple Selection Sort）**就是通过 `n-i` 次关键字间的比较，从 `n-i+1` 个记录中选出关键字最小的记录，并和第 `i(1<=i<=n)` 个记录交换。即第i次找到第i小的值，并放在第i位
 
+<u>代码如下</u>：
+
 ```js
 function selectionSort(array) {
     const length = array.length;
@@ -66,9 +68,35 @@ function selectionSort(array) {
 - 不管情况如何，都需要进行(n-i) 次比较，第一次(n-1)，第二次(n-2)，第三次(n-3)···一直到1，如下式所示，因此总的时间复杂度为 $O(n^2)$ 。但是要注意，虽然与冒泡排序复杂相同，但是简单选择排序由于交换次数少，性能还是要好于冒泡排序的
 $1+2+3+···+(n-2)+(n-1) = \frac{n*(n-1)}{2}$
 
+### 1.3 直接插入排序
 
+- **直接插入排序（Straight Insertion Sort）**的基本操作是将一个记录插入到已经排好序的有序表中，从而得到一个新的、记录数增1的有序表
 
+![插入排序](../../images/12.png)
 
+<u>代码如下</u>：
+
+```js
+function insertionSort(array) {
+    const length = array.length;
+    let temp; // 创建一个哨兵节点
+    for (let i = 1 ; i < length ; i++) { //注意这里i的索引是从1开始的，因为默认第一项已经排序了
+        let j = i;
+        temp = array[i];
+        while (j > 0 && array[j-1] > temp) {
+            array[j] = array[j-1];
+            j--;
+        }
+        array[j] = temp;
+    }
+}
+```
+
+> 直接插入排序复杂度分析
+> 最好 $O(n)$ ; 最坏 $O(n^2)$
+> 对于小型数组，插入排序要比冒泡和选择排序性能好一些
+- 最好的情况下就是数组本身就是有序的，那么只需要遍历一次i就行，即 $n-1$ 次，复杂度为 $O(n)$
+- 最坏的情况下，数组完全逆序，就需要比较 $2+3+···+(n-1)+n = \frac{(n+2)(n-1)}{2}$ ，而记录移动次数达到最大值 $\sum_{i=2}^n (i+1)= \frac{(n+4)(n-1)}{2}$ ，如果排序记录是随机的，那么根据概率相同的原则，平均比较和移动次数约为 $\frac{n^2}{4}$
 
 
 
@@ -88,4 +116,3 @@ function swap(array, a, b) {
     [array[a], array[b]] = [array[b], array[a]];
 }
 ```
-
