@@ -1,6 +1,6 @@
-const array = [1, 2, 3, 4, 5];
-const { length } = array;
-
-
-console.log(typeof (length));
-console.log(length);
+let increment = 4;
+console.log(increment / 3 + 1);
+increment = parseInt(increment / 3 + 1);
+let array = [9, 1, 5, 8, 3, 7, 4, 6, 2];
+console.log(increment);
+// console.log(array[increment]);

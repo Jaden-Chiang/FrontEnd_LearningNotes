@@ -70,7 +70,7 @@ $1+2+3+···+(n-2)+(n-1) = \frac{n*(n-1)}{2}$
 
 ### 1.3 直接插入排序
 
-- **直接插入排序（Straight Insertion Sort）**的基本操作是将一个记录插入到已经排好序的有序表中，从而得到一个新的、记录数增1的有序表
+- **直接插入排序（Straight Insertion Sort）** 的基本操作是将一个记录插入到已经排好序的有序表中，从而得到一个新的、记录数增1的有序表
 
 ![插入排序](../../images/12.png)
 
@@ -99,6 +99,37 @@ function insertionSort(array) {
 - 最坏的情况下，数组完全逆序，就需要比较 $2+3+···+(n-1)+n = \frac{(n+2)(n-1)}{2}$ ，而记录移动次数达到最大值 $\sum_{i=2}^n (i+1)= \frac{(n+4)(n-1)}{2}$ ，如果排序记录是随机的，那么根据概率相同的原则，平均比较和移动次数约为 $\frac{n^2}{4}$
 
 
+### 1.4 希尔排序
+- **希尔排序（Shell Sort）** 是将相距某个“增量”的记录组成一个子序列，这样才能保证在子序列内分别进行直接插入排序后得到的结果是基本有序而不是局部有序
+
+<u>代码如下</u>：
+
+```js
+// 本代码为参考模板自己编写
+function shellSort(array) {
+    let i;
+    let j;
+    let increment = array.length;
+    let temp;
+    do {
+        increment = parseInt(increment / 3 + 1); // 增量序列
+        for (i = increment; i < array.length; i++) {
+            if (array[i] < array[i - increment]) {
+                temp = array[i];
+                for (j = i - increment; j >= 0 && temp < array[j]; j -= increment) {
+                    array[j + increment] = array[j]; // 把大的数字往后移动
+                }
+                array[j + increment] = temp; // 上一步移动完后，j还要再减去一次increment，因此需要加上一个补回来
+            }
+        }
+    } while (increment > 1);
+
+    return array;
+}
+```
+
+> 希尔排序复杂度分析
+> 当增量序列合理时，时间复杂度为 $O(n^\frac{3}{2})$
 
 -----
 
