@@ -1,37 +1,26 @@
+const array = [8, 7, 6, 5, 4, 3, 2, 1];
 
-let array = [5, 10, 90, 130, 70, 240, 80, 60, 20, 6, 33, 95, 76];
-function HeapSort(array) {
-    let length = array.length; // 获取堆(完全二叉树)的节点数量
-    for (let i = length; i > 0; i--) {
-        swap(array, i, 0);
-        HeapAdjust(array, i);
+function mergeSort(array) {
+    if (array.length > 1) { // 设置递归的结束条件，即子序列长度为1
+        const length = array.length;
+        const middle = Math.floor(length / 2); // Math.floor是取不小于括号中数字的最小整数
+        const left = mergeSort(array.slice(0, middle));
+        const right = mergeSort(array.slice(middle, length));
+        array = merge(left, right);
     }
+    return array;
 }
 
-function swap(array, a, b) {
-    const temp = array[a];
-    array[a] = array[b];
-    array[b] = temp;
-}
-
-var HeapAdjust = function (array, length) {
-    let n = parseInt((length - 2) / 2);
-    while (n >= 0) {
-        let leftChild = n * 2 + 1; // 左子节点编号
-        let rightChild = n * 2 + 2; // 右子节点编号
-        let max = n;
-        if (leftChild < length && array[max] < array[leftChild]) {
-            max = leftChild;
-        }
-        if (rightChild < length && array[max] < array[rightChild]) {
-            max = rightChild;
-        }
-        if (max != n) {
-            swap(array, max, n);
-        }
-        n--;
+var merge = function (left, right) {
+    let i = 0;
+    let j = 0;
+    const result = []; // 记录返回的结果
+    while (i < left.length && j < right.length) {
+        result.push(
+            left[i] < right[j] ? left[i++] : right[j++]
+        );
     }
+    return result.concat(i < left.length ? left.slice(i) : right.slice(j));
 }
 
-HeapSort(array);
-console.log(array);
+console.log(mergeSort(array));
