@@ -131,6 +131,53 @@ function shellSort(array) {
 > 希尔排序复杂度分析
 > 当增量序列合理时，时间复杂度为 $O(n^\frac{3}{2})$
 
+
+### 1.5 堆排序
+
+- **堆**是具有下列性质的**完全二叉树**：每个结点的值都大于或等于其左右孩子结点的值，称为**大顶堆**；每个结点的值都小于或等于其左右孩子结点的值，称为**小顶堆**
+![大小顶堆示意图](../../images/13.png)
+
+- **堆排序（Heap Sort）**就是利用堆进行排序的方法。以大顶堆为例，将待排序的序列构造成一个大顶堆，此时整个序列的最大值就是顶堆的根结点。将它移走后，将剩余的n-1个序列重新构造成一个堆，就会得到n个元素中次大值。反复执行，就能得到有序序列
+
+<u>代码如下</u>：
+
+```js
+function HeapSort(array) {
+    let length = array.length; // 获取堆(完全二叉树)的节点数量
+    HeapAdjust(array, length); // 调整为一个大顶堆
+    for (let i = (length - 1); i > 0; i--) {
+        swap(array, i, 0);
+        HeapAdjust(array, i); // 再次调整为大顶堆
+    }
+}
+
+var HeapAdjust = function (array, length) {
+    /*
+     * 这里是利用了完全二叉树的性质，如果完全二叉树节点个数为n，那么第一个有子节点的节点编号一定是[(n - 2) / 2] （根节点从0开始编号）
+     * 
+    */
+    let n = parseInt((length - 2) / 2);
+    while (n >= 0) {
+        let leftChild = n * 2 + 1; // 左子节点编号
+        let rightChild = n * 2 + 2; // 右子节点编号
+        let max = n;
+        if (leftChild < length && array[max] < array[leftChild]) {
+            max = leftChild;
+        }
+        if (rightChild < length && array[max] < array[rightChild]) {
+            max = rightChild;
+        }
+        if (max != n) {
+            swap(array, max, n);
+        }
+        n--;
+    }
+}
+
+```
+
+
+
 -----
 
 > 用到的方法
@@ -140,7 +187,7 @@ function shellSort(array) {
 function swap(array, a, b) {
     const temp = array[a];
     array[a] = array[b];
-    array[b] = temo;
+    array[b] = temp;
 }
 // ES2015方法
 function swap(array, a, b) {
