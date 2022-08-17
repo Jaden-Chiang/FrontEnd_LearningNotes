@@ -1,20 +1,32 @@
-const array = [8, 7, 6, 5, 4, 3, 2, 1];
+let array = [11, 10, 65, 9, 8, 20, 7, 6, 5, 4, 3, 2, 1, 101];
 
 function mergeSort(array) {
-    if (array.length > 1) { // 设置递归的结束条件，即子序列长度为1
-        const length = array.length;
-        const middle = Math.floor(length / 2); // Math.floor是取不小于括号中数字的最小整数
-        const left = mergeSort(array.slice(0, middle));
-        const right = mergeSort(array.slice(middle, length));
-        array = merge(left, right);
+    let tempArray = [];// 创建一个额外数组存放结果
+    let k = 1;
+    while (k < array.length) {
+        array = mergePass(array, tempArray, k, array.length);
+        k *= 2; // 每次循环的子序列长度加倍
     }
     return array;
+}
+
+function mergePass(oldArray, newArray, k, length) {
+    let i = 0;
+    while (i <= length - 2 * k) { // 设定循环结束条件
+        newArray = newArray.concat(merge(oldArray.slice(i, i + k), oldArray.slice(i + k, i + 2 * k)));
+        i = i + 2 * k;
+    }
+    if (length - i > k) {
+        return newArray.concat(merge(oldArray.slice(i, i + k), oldArray.slice(i + k, length)));
+    } else {
+        return newArray.concat(oldArray.slice(i));
+    }
 }
 
 var merge = function (left, right) {
     let i = 0;
     let j = 0;
-    const result = []; // 记录返回的结果
+    let result = [];
     while (i < left.length && j < right.length) {
         result.push(
             left[i] < right[j] ? left[i++] : right[j++]

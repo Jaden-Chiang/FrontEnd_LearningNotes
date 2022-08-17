@@ -185,12 +185,73 @@ var HeapAdjust = function (array, length) {
 
 - **归并排序（Merging Sort）**是利用归并的思想实现的排序方法。它的原理是假设初始序列含有 n 个记录，则可以看成是 n 个有序的子序列，每个子序列的长度为1，然后两两合并，得到 $[n/2]$ （$[x]$代表不小于x的最小整数）个长度为2或1的有序子序列；再两两合并······，如此重复，直至得到一个长度为n的有序序列为止。这种方法称为**2路归并排序**
 
+#### 1.6.1 递归归并排序
 <u>代码如下</u>：
 
 ```js
+function mergeSort(array) {
+    if (array.length > 1) { // 设置递归的结束条件，即子序列长度为1
+        const length = array.length;
+        const middle = Math.floor(length / 2); // Math.floor是取不小于括号中数字的最小整数
+        const left = mergeSort(array.slice(0, middle));
+        const right = mergeSort(array.slice(middle, length));
+        array = merge(left, right);
+    }
+    return array;
+}
 
+var merge = function (left, right) {
+    let i = 0;
+    let j = 0;
+    const result = []; // 记录返回的结果
+    while (i < left.length && j < right.length) {
+        result.push(
+            left[i] < right[j] ? left[i++] : right[j++]
+        );
+    }
+    return result.concat(i < left.length ? left.slice(i) : right.slice(j));
+}
 ```
 
+#### 1.6.2 非递归归并排序
+<u>代码如下</u>: 
+
+```js
+function mergeSort(array) {
+    let tempArray = [];// 创建一个额外数组存放结果
+    let k = 1;
+    while (k < array.length) {
+        array = mergePass(array, tempArray, k, array.length);
+        k *= 2; // 每次循环的子序列长度加倍
+    }
+    return array;
+}
+
+function mergePass(oldArray, newArray, k, length) {
+    let i = 0;
+    while (i <= length - 2 * k) { // 设定循环结束条件
+        newArray = newArray.concat(merge(oldArray.slice(i, i + k), oldArray.slice(i + k, i + 2 * k)));
+        i = i + 2 * k;
+    }
+    if (length - i > k) {
+        return newArray.concat(merge(oldArray.slice(i, i + k), oldArray.slice(i + k, length)));
+    } else {
+        return newArray.concat(oldArray.slice(i));
+    }
+}
+
+var merge = function (left, right) {
+    let i = 0;
+    let j = 0;
+    let result = [];
+    while (i < left.length && j < right.length) {
+        result.push(
+            left[i] < right[j] ? left[i++] : right[j++]
+        );
+    }
+    return result.concat(i < left.length ? left.slice(i) : right.slice(j));
+}
+```
 
 -----
 
