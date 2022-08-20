@@ -253,6 +253,207 @@ var merge = function (left, right) {
 }
 ```
 
+### 1.7 快速排序算法
+
+- **快速排序（Quick Sort）**的基本思想是：通过一趟排序将待排记录分割成独立的两部分，其中一部分记录的关键字均比另一部分记录的关键字小，则可分别对这两部分记录继续进行排序，以达到整个序列有序的目的
+
+- **枢轴（pivot）**：一个关键字，排序时要想尽办法将它放到一个位置，使得它左边的值都比它小，右边的值都比它大
+
+- **三数取中（median-of-three）**：取三个关键字先进行排序，将中间数作为枢轴，一般是取左边、右边和中间三个数
+
+<u>代码如下</u>：
+
+```js
+function QuickSort(array) {
+    QSort(array, 0, array.length - 1);
+}
+
+function QSort(array, low, high) {
+    let pviot;
+    if (low < high) {
+        pviot = Partition(array, low, high); // 找到枢轴，将数组一分为二
+        QSort(array, low, pviot - 1); // 对低子数组递归排序
+        QSort(array, pviot + 1, high); // 对高子数字递归排序
+    }
+}
+
+function Partition(array, low, high) {
+    median3(array, low, high); // 三数取中，保证最左侧是中间值
+    let pviotkey = array[low];
+    let temp = pviotkey; // 记录枢轴，但是先不进行交换
+    while (low < high) {
+        while (low < high && array[high] > pviotkey) {
+            high--;
+        }
+        array[low] = array[high];
+        while (low < high && array[low] < pviotkey) {
+            low++;
+        }
+        array[high] = array[low];
+    }
+    array[low] = temp;
+    return low;
+}
+
+// 三数取中
+function median3(array, left, right) {
+    let mid = left + (right - left) / 2; // 避免数值溢出
+    if (array[left] > array[right]) {
+        swap(array, left, right); // 保证左边较小
+    }
+    if (array[mid] > array[right]) {
+        swap(array, mid, right); // 保证中间较小
+    }
+    if (array[left] < array[mid]) {
+        swap(array, left, mid); // 保证中间较小，这样最左边的值将是中间值
+    }
+}
+```
+
+> 快速排序时间复杂度分析
+> 最优情况：$O(nlogn)$；最差情况：$O(n^2)$
+
+
+### 1.8 计数排序
+
+- **计数排序（Counting Sort）**是一个**整数排序**算法，是典型的用空间换时间的算法，同时也是一种**不基于比较的算法**（数组元素之间不存在比较大小）
+- 计数排序的思路是这样的，先获取整个数组最大和最小的值，然后使用 $(max - min) + 1$ 个计数器（以键值对的形式存储）来存储最小值和最大值之间每个值的个数。在排序时，遍历计数数组，将其中次数i不等于0的元素弹出i次
+
+<u>代码如下</u>：
+
+在下述代码中，建立的计数数组长度并不是 $(max - min) + 1$ ，而是 $max + 1$ ，即从0到最大值，这样写是因为计数数组的索引（比如，0的次数就在`count[0]`，5的次数就在`count[5]`），就正好是元素的大小，不需要再进行加减
+
+```js
+function countingSort(array) {
+    if (array.length < 2) return array;
+    const max = findMaxValue(array);
+    const counts = new Array(max + 1);
+    array.forEach(element => {
+        if (!counts[element]) {
+            counts[element] = 0;
+        }
+        counts[element]++;
+    });
+
+    let sortedIndex = 0;
+    counts.forEach((count, i) => {
+        while (count > 0) {
+            array[sortedIndex++] = i;
+            count--;
+        }
+    });
+
+    return array;
+}
+
+function findMaxValue(array) {
+    let max = array[0];
+    for (let i = 1; i < array.length; i++) {
+        if (array[i] > max) {
+            max = array[i];
+        }
+    }
+
+    return max;
+}
+```
+
+但是这种方法对于数组集中且较大的数组不适合，比如某个数组范围全部在(100000,100100)，建立过大的数组就很浪费，因此可以对索引稍加修改，见下方代码
+
+```js
+function countingSort(array) {
+    if (array.length < 2) return array;
+    const value = findValue(array);
+    const max = value[0];
+    const min = value[1];
+    const counts = new Array(max - min + 1);
+    array.forEach(element => {
+        if (!counts[element - min]) { // 元素值减去最小值，就是它在计数数组中的位置
+            counts[element - min] = 0;
+        }
+        counts[element - min]++;
+    });
+
+    let sortedIndex = 0;
+    for (let i = 0; i < counts.length; i++) {
+        while (counts[i] > 0) {
+            array[sortedIndex++] = i + min;
+            counts[i]--;
+        }
+    }
+
+    return array;
+}
+
+function findValue(array) {
+    let max = array[0];
+    let min = array[0];
+    for (let i = 1; i < array.length; i++) {
+        if (array[i] > max) {
+            max = array[i];
+        } else if (array[i] < min) {
+            min = array[i];
+        }
+    }
+
+    return [max, min];
+}
+```
+
+> 计数排序时间复杂度分析
+> $O(n+k)$ ，其中k是临时计数器的大小
+
+
+### 1.9 桶排序
+
+- **桶排序**是将元素分为不同的捅，再使用一个简单的排序算法，例如插入排序，来堆每个桶进行排序，然后再将所有的捅合并为结果数组
+
+<u>代码如下</u>：
+
+```js
+function buckerSort(array, bucketSize = 5) { // bucketSize 是指要划分为多少个捅，可以自定义
+    if (array.length < 2) {
+        return array;
+    }
+    const buckets = createBuckets(array, bucketSize);
+    return sortBuckets(buckets);
+}
+
+function createBuckets(array, bucketSize) {
+    let minValue = array[0];
+    let maxValue = array[1];
+    for (let i = 0; i < array.length; i++) {
+        if (array[i] > maxValue) {
+            maxValue = array[i];
+        } else if (array[i] < minValue) {
+            minValue = array[i];
+        }
+    }
+    const bucketCount = Math.floor((maxValue - minValue) / bucketSize) + 1; // 计算每个桶里面有多少个元素
+    const buckets = [];
+    for (let i = 0; i < bucketCount; i++) {
+        buckets[i] = [];
+    }
+    for (let i = 0; i < array.length; i++) {
+        const bucketIndex = Math.floor((array[i] - minValue) / bucketSize);
+        buckets[bucketIndex].push(array[i]);
+    }
+    return buckets;
+}
+
+function sortBuckets(buckets) {
+    const sortedArray = [];
+    for (let i = 0; i < buckets.length; i++) {
+        if (buckets[i] != null) {
+            insertionSort(buckets[i]);
+            sortedArray.push(...buckets[i]);
+        }
+    }
+    return sortedArray;
+}
+```
+
+
 -----
 
 > 用到的方法
