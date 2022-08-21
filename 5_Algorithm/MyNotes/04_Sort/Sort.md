@@ -257,7 +257,7 @@ var merge = function (left, right) {
 
 ### 1.7 快速排序算法
 
-- **快速排序（Quick Sort）**的基本思想是：通过一趟排序将待排记录分割成独立的两部分，其中一部分记录的关键字均比另一部分记录的关键字小，则可分别对这两部分记录继续进行排序，以达到整个序列有序的目的
+- **快速排序（Quick Sort）** 的基本思想是：通过一趟排序将待排记录分割成独立的两部分，其中一部分记录的关键字均比另一部分记录的关键字小，则可分别对这两部分记录继续进行排序，以达到整个序列有序的目的
 
 - **枢轴（pivot）**：一个关键字，排序时要想尽办法将它放到一个位置，使得它左边的值都比它小，右边的值都比它大
 
@@ -266,51 +266,46 @@ var merge = function (left, right) {
 <u>代码如下</u>：
 
 ```js
-function QuickSort(array) {
-    QSort(array, 0, array.length - 1);
+function quickSort(array) {
+    return quick(array, 0, array.length - 1);
 }
 
-function QSort(array, low, high) {
-    let pviot;
-    if (low < high) {
-        pviot = Partition(array, low, high); // 找到枢轴，将数组一分为二
-        QSort(array, low, pviot - 1); // 对低子数组递归排序
-        QSort(array, pviot + 1, high); // 对高子数字递归排序
-    }
-}
-
-function Partition(array, low, high) {
-    median3(array, low, high); // 三数取中，保证最左侧是中间值
-    let pviotkey = array[low];
-    let temp = pviotkey; // 记录枢轴，但是先不进行交换
-    while (low < high) {
-        while (low < high && array[high] > pviotkey) {
-            high--;
+function quick(array, left, right) {
+    let pivot;
+    if (array.length > 1) {
+        pivot = partition(array, left, right)
+        if (left < pivot - 1) {
+            quick(array, left, pivot - 1);
         }
-        array[low] = array[high];
-        while (low < high && array[low] < pviotkey) {
-            low++;
+        if (pivot < right) {
+            quick(array, pivot, right)
         }
-        array[high] = array[low];
     }
-    array[low] = temp;
-    return low;
+    return array;
 }
 
-// 三数取中
-function median3(array, left, right) {
-    let mid = left + (right - left) / 2; // 避免数值溢出
-    if (array[left] > array[right]) {
-        swap(array, left, right); // 保证左边较小
+function partition(array, left, right) {
+    const pivot = array[Math.floor((right + left) / 2)];
+    let i = left;
+    let j = right;
+    while (i <= j) {
+        while (array[i] < pivot) {
+            i++;
+        }
+        while (array[j] > pivot) {
+            j--;
+        }
+        if (i <= j) {
+            swap(array, i, j);
+            i++;
+            j--;
+        }
     }
-    if (array[mid] > array[right]) {
-        swap(array, mid, right); // 保证中间较小
-    }
-    if (array[left] < array[mid]) {
-        swap(array, left, mid); // 保证中间较小，这样最左边的值将是中间值
-    }
+    return i;
 }
 ```
+
+![快排步骤](../../images/15.png)
 
 > 快速排序时间复杂度分析
 > 最优情况：$O(nlogn)$；最差情况：$O(n^2)$
