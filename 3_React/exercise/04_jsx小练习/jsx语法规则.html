@@ -30,9 +30,11 @@
             <div>
                 <h1>前端JS框架列表</h1>
                 <ul>
-                    <li>Angular</li>
-                    <li>React</li>
-                    <li>Vue</li>
+                    {
+                        data.map((ele) => {
+                            return <li key={ele}> {ele} </li>;
+                        })
+                    }
                 </ul>
             </div>
         );
