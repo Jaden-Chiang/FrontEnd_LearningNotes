@@ -24,37 +24,33 @@
     <script src="../js/prop-types.js"></script>
 
     <script type="text/babel">
-        // 1. 创建组件
-        class Person extends React.Component {
-            render() {
-                const { name, age, sex } = this.props;
-                return (
-                    <ul>
-                        <li>姓名：{name}</li>
-                        <li>年龄：{age + 1}</li>
-                        <li>性别：{sex}</li>
-                    </ul>
-                )
-            }
+        function Person(props) {
+            const { name, age, sex } = props;
+            return (
+                <ul>
+                    <li>姓名：{name}</li>
+                    <li>年龄：{age}</li>
+                    <li>性别：{sex}</li>
+                </ul>
+            )
         }
 
         // 对标签属性进行类型、必要性的限制
         Person.propTypes = {
-            name: PropTypes.string.isRequired,
-            sex: PropTypes.string
+            name: PropTypes.string.isRequired, // 限制name必传，且为字符串
+            sex: PropTypes.string, // 限制sex，且为字符串
+            age: PropTypes.number, // 限制age，且为数字
+            sprak: PropTypes.func // 限制speak，且为函数
         }
 
         // 指定默认标签属性值
         Person.defaultProps = {
-            sex: "Unkown"
+            sex: "Unkown", // 限制sex默认值为 “Unknown”
+            age: 18 // 限制age默认值为 18
         }
 
         // 2. 渲染组件到页面
-        ReactDOM.render(<Person name="herry" age={18} sex="男" />, document.getElementById('test1'));
-        ReactDOM.render(<Person name="tom" age={19} />, document.getElementById('test2'));
-        const p = { name: "Lari", age: 18, sex: 'girl' };
-        // ReactDOM.render(<Person name={p.name} age={p.age} sex={p.sex} />, document.getElementById('test'));
-        ReactDOM.render(<Person {...p} />, document.getElementById('test3'));
+        ReactDOM.render(<Person name="jerry" sex="女" />, document.getElementById('test1'));
     </script>
 
 </body>
