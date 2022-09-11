@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2 受控组件</title>
+    <title>高阶函数、函数柯里化</title>
 </head>
 
 <body>
@@ -28,14 +28,9 @@
                 password: ''  // 密码
             }
             // 保存用户名到状态中
-            saveUsername = (event) => {
-                this.setState({ username: event.target.value });
+            saveFormData = (dataType, value) => {
+                this.setState({ [dataType]: value });
             }
-            // 保存密码到状态中
-            savePassword = (event) => {
-                this.setState({ password: event.target.value });
-            }
-
             handleSubmit = (event) => {
                 event.preventDefault(); // 组织表单提交
                 const { username, password } = this.state;
@@ -45,8 +40,8 @@
             render() {
                 return (
                     <form action="" onSubmit={this.handleSubmit}>
-                        用户名: <input onChange={this.saveUsername} type="text" name="username" />
-                        密码： <input onChange={this.savePassword} type="password" name="password" />
+                        用户名: <input onChange={(event) => { this.saveFormData('username', event.target.value) }} type="text" name="username" />
+                        密码： <input onChange={event => this.saveFormData('password', event.target.value)} type="password" name="password" />
                         <button>登录</button>
                     </form>
                 )
