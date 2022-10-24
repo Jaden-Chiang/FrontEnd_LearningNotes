@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { Link, Route } from 'react-router-dom'
-import Home from './pages/Home' // Home是路由组件
-import About from './pages/About' // About是路由组件
-import Header from './components/Header' // Header是一般组件
+import Home from './components/Home'
+import About from './components/About'
 
 export default class App extends Component {
 
@@ -11,7 +10,7 @@ export default class App extends Component {
 			<div>
 				<div className="row">
 					<div className="col-xs-ofset-2 col-xs-8">
-						<Header />
+						<div className="page-header"><h2>React Router Demo</h2></div>
 					</div>
 				</div>
 				<div className="row">
