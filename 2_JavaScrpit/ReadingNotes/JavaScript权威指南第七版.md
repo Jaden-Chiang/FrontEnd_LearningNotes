@@ -217,6 +217,37 @@ const func = () => {
   }
   ```
 
-  
 
-  
+
+
+## 第7章 数组
+
+### 7.2 读写数组元素
+
+- 数组是一种特殊的对象. JavaScript会将数组索引转换为字符串, 即索引`1`会变成字符串`"1"`
+
+  ```javascript
+  let nums = [1, 2, 3];
+  console.log((nums[1] === nums["1"])); // => true
+  ```
+
+- 所有索引都是属性名, 但只有介于`0~2^32-2`之间的整数属性名才是索引
+
+- 可以使用负数或非整数值来索引数组, 但此时更像是添加了一个键值对
+
+  ```javascript
+  let nums = [1, 2, 3];
+  nums[-1.23] = true;
+  console.log(nums); // => [ 1, 2, 3, '-1.23': true ]
+  ```
+
+- 还有如下属性
+
+  ```javascript
+  let nums = [1, 2, 3];
+  nums["10"] = 10;
+  console.log(nums); // => [ 1, 2, 3, <7 empty items>, 10 ]
+  console.log(nums[1.00]); => 2
+  ```
+
+- 
