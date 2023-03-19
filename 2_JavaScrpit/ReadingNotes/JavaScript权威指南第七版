@@ -177,10 +177,46 @@ const func = () => {
 
   ```javascript
   let point = {x: 0, y: 1}; // 通过对象字面量
+  let a = new Array(); // 使用new创建对象
+  let o = Object.create({x: 1, y: 2}); // 使用Object.create()创建对象
+  ```
+
+#### 6.2.4 Object.create()
+
+- `Object.create()`用于创建一个新对象, 使用其第一个参数作为新对象的原型
+
+- `Object.create()`的一个用途是防止对象被某个第三方函数库意外(但非恶意)修改
+
+  > One use for `Object.create()` is when you want to guard against unintended (but nonmalicious) modification of an object by a library function that you don't have control over.
+
+### 6.5 测试属性
+
+- 可以使用`in`操作符, `hasOwnProperty()`, `propertyIsEnumerable()`或直接查询相应属性来测试是否有属性. `in`和`hasOwnProperty()`区别在于, `in`操作符可以测试继承的属性, 但`hasOwnProperty()`只能测试自有属性
+
+  > The `hasOwnProperty()` method of an object tests whether that object has an **own** property with the given name.
+
+  ```javascript
+  const obj1 = { x: 1, y: 2 };
+  console.log(("x" in obj1)); // => true
+  console.log(("toString" in obj1)); // => true
+  console.log((obj1.hasOwnProperty("x"))); // => true
+  console.log((obj1.hasOwnProperty("toString"))); // => false, toString不是obj1的自由属性
+  ```
+
+### 6.6 枚举属性
+
+- `for/in`可以枚举对象继承的属性, 但是对象继承的内置方法是不可枚举的
+
+  ```javascript
+  const obj1 = { x: 1, y: 2 };
+  let obj2 = Object.create(obj1);
+  obj2["z"] = 3;
   
+  for (let p in obj2) {
+    console.log(p); // => z, x, y
+  }
   ```
 
   
 
-#### 6.2.4 Object.create()
-
+  
