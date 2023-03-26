@@ -312,4 +312,109 @@ const func = () => {
 
 - 也可以把函数赋值给对象的属性, 这时把函数称作"方法"
 
-- 
+### 8.6 闭包
+
+- JavaScript 使用**词法作用域(lexical scoping)**. 这意味着函数执行时使用的是定义函数时生效的变量作用域, 而不是调用函数时生效的变量作用域. 这种函数对象与作用域组合起来解析函数变量的机制, 称作**闭包(closure)**
+
+  ```javascript
+  let s = "global scope"; // 定义全局变量
+  function t () {
+      let s = 'local scope'; // 定义局部变量
+      function u () { // 使用箭头函数也可以
+          return s;
+      }
+      return u();
+  }
+  
+  console.log(t()); // => 'local scope'
+  // 这正是闭包的本质: 它们会捕获自身定义所在外部的局部变量(及参数)绑定
+  ```
+
+### 8.7 函数属性, 方法与构造函数
+
+#### 8.7.5 bind() 方法
+
+- `bind()`方法的主要目的是把函数绑定到对象
+
+- `bind()`也可以执行"部分应用",即在第一个参数之后传给`bind()`的参数也会随着`this`值一起被绑定, 部分应用时函数式编程中的一个常用技术, 有时候也称为柯里化(currying)
+
+  > The `bind()` method does more than just bind a function to an object, however. It can also perform partial application: any arguments you pass to `bind()` after the first are bound with the `this` value. This partial application feature of `bind()` does work with arrow functions. Partial application is a common technique in functional programming and is sometimes called *currying*
+
+```javascript
+function v_func (numb) {
+    return this.numa + numb;
+}
+
+// 不使用柯里化
+let w_obj = {numa: 1}; // 要绑定的对象
+let x_func = v_func.bind(w_obj);
+console.log(x_func(2)); // => 3
+
+// 使用柯里化
+let w_obj = {numa: 1}; // 要绑定的对象
+let x_func = v_func.bind(w_obj, 2);
+console.log(x_func()); // => 3
+```
+
+在上述代码中, `v_func`返回值指定了`this.numa`, 表明`v_func`必须有能够继承的`this`值, 如果我们单独调用`v_func`, 则`numa`始终不会被赋值, 因此, `v_func`绑定的对象, 必须具有`numa`这个属性
+
+```javascript
+function v_func (numb) {
+    return this.numa + numb;
+}
+console.log(v_func(numb:2, 3)) // 从webStorm中可以清楚看到,无论调用v_func时有多少赋值, 都只能被赋给numb
+```
+
+如果我们将`v_func`改写为下面这样, 则可以更清楚的看到*currying*
+
+```javascript
+function v_func (numa, numb) {
+    return numa + numb;
+}
+
+let w_obj = {numa: 1}; // 要绑定的对象
+let x_func = v_func.bind(w_obj, 2, 3);
+console.log(x_func(6)); // => 5, 因为上面的代码,已经将 2和3 部分应用到了numa和numb, 后面再有的都属于多的实参
+console.log(w_obj.numa); // => 1, 此时numa只是w_obj的一个属性了
+```
+
+同时也要注意, 如果`v_func`是箭头函数, 那么将不能绑定`this`. 因为箭头函数从定义它们的环境中继承`this`值, 且这个值不能被`bind()`覆盖
+
+```javascript
+const v_func = (numb) => {
+    return this.numa + numb;
+}
+
+let w_obj = {numa: 1}; // 要绑定的对象
+let x_func = v_func.bind(w_obj);
+console.log(x_func(2)); // => NaN
+```
+
+### 8.8 函数式编程
+
+#### 8.8.2 高阶函数
+
+- 高阶函数就是操作函数的函数, 它接收一个或多个函数作为参数并返回一个新函数
+
+  > A *higher-order function* is a function that operates on functions, taking one or more functions as arguments and returning a new function.
+
+
+
+## 第9章 类
+
+### 9.2 类和构造函数
+
+- 构造函数是一种专门用于初始化新对象的函数
+
+#### 9.2.2 constructor属性
+
+- 每个普通的JavaScript函数自动拥有一个`prototype`属性, 这个属性的值是一个对象, 有一个不可枚举的`constructor`属性. 而这个`constructor`属性的值就是该函数对象: `F.prototype.constructor === F`
+
+  ![image-20230326141222568](.\pictures\image-9-1.png)
+
+### 9.5 子类
+
+#### 9.5.2 通过`extends`和`super`创建子类
+
+- 如果使用`extends`关键字定义了一个类,那么这个类的构造函数必须使用`super()`调用父类构造函数
+- 在通过`super()`调用父类构造函数之前, 不能在构造函数中使用`this`关键字. 因为要确保父类先于子类得到初始化
