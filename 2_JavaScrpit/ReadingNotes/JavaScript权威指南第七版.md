@@ -410,7 +410,7 @@ console.log(x_func(2)); // => NaN
 
 - 每个普通的JavaScript函数自动拥有一个`prototype`属性, 这个属性的值是一个对象, 有一个不可枚举的`constructor`属性. 而这个`constructor`属性的值就是该函数对象: `F.prototype.constructor === F`
 
-  ![image-20230326141222568](.\pictures\image-9-1.png)
+  ![image-20230326141222568](./pictures/image-9-1.png)
 
 ### 9.5 子类
 
