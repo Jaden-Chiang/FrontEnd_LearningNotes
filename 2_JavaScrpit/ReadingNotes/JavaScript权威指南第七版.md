@@ -418,3 +418,66 @@ console.log(x_func(2)); // => NaN
 
 - 如果使用`extends`关键字定义了一个类,那么这个类的构造函数必须使用`super()`调用父类构造函数
 - 在通过`super()`调用父类构造函数之前, 不能在构造函数中使用`this`关键字. 因为要确保父类先于子类得到初始化
+
+
+
+## 第11章 JavaScript标准库
+
+### 11.1 集合与映射
+
+#### 11.1.1 Set类
+
+- 集合就是一组值, 与数组类似. 但与数组不同的是, 集合没有索引或顺序, 也不允许重复
+
+  ```javascript
+  let ad = new Set();
+  ad.add(1);
+  console.log(ad); // => Set(1) { 1 }
+  ad.add([2, 3]);
+  console.log(ad); // => Set(2) { 1, [ 2, 3 ] }
+  ad.add([2, 3]);
+  console.log(ad); // => Set(3) { 1, [ 2, 3 ], [ 2, 3 ] }
+  
+  // 两次添加的 [2, 3] 并不是相同的引用, 因此会添加两个
+  ```
+
+#### 11.1.2 Map类
+
+- `Map`对象表示一组被称为键的值, 其中每个键都关联着(或映射到)另一个值. `Map`初始化时, 需要把关联的键和值写成数组的数组的形式
+
+  ```javascript
+  let ae = new Map([["one", 1], ["two", 2]]);
+  console.log(ae); // => Map(2) { 'one' => 1, 'two' => 2 }
+  ```
+
+- 与集合一样, 任何JavaScript值都可以在映射中作为键或值. 这包括`null`, `undefined`和`NaN`
+
+### 11.3 正则表达式与模式匹配
+
+#### 11.3.2 模式匹配的字符串方法
+
+- String 支持如下使用正则表达式的方法
+
+  - `search()` 搜索
+
+    ```javascript
+    let af = "JavaScript".search(/ava/ui);
+    console.log(af); // => 1
+    let ag = "JavaScript".search(/aa/ui);
+    console.log(ag); // => -1
+    ```
+
+  - `replace()` 替换
+
+    ```javascript
+    let ah = "javascript".replace(/javascript/ui, "JavaScript");
+    console.log(ah); // => JavaScript
+    let ai = "java'script'".replace(/'([^']*)'/ui, "<$1>");
+    console.log(ai); // => java<script>
+    ```
+
+  - `match()` 匹配
+
+  - `matchAll()` 全局匹配, 用于遍历所有匹配项
+
+  - `split()` 拆分
