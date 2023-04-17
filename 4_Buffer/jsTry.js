@@ -7,3 +7,4 @@ function sum(a) {
 }
 
 let res = sum(1)(2)(3);
+console.log(res)
