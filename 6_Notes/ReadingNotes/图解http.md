@@ -25,15 +25,15 @@
 
 - 为了准确无误地将数据送达目标处，TCP协议采用**三次握手**（three-way handshaking）策略。握手过程使用了TCP地标志：SYN（synchronize）和ACK（acknowledgement）
 
-  ![](./img1-4.svg)
+  ![](./pictures/图解http/img1-4.svg)
 
 - DNS协议提供通过域名查找IP地址，或者逆向从IP地址反查域名的服务
 
-  ![](./img1-5.svg)
+  ![](./pictures/图解http/img1-5.svg)
 
 - 各种协议与HTTP协议的区别
 
-  ![](./img1-6.svg)
+  ![](./pictures/图解http/img1-6.svg)
 
 ### 1.7 URI和URL
 
@@ -180,15 +180,15 @@
 
 - **代理**是一种有转发功能的应用程序，它扮演了位于服务端和客户端“中间人”的角色，接收由客户端发送的请求并转发给服务器，同时也接收服务器返回的响应并转发给客户端
 
-  ![代理示意图]()
+  ![image-20230507010640968](./pictures/图解http/image-5-1.png)
 
 - **网关**是转发其他服务器通信数据的服务器，接收从客户端发送来的请求时，它就像自己拥有资源的源服务器一样对请求进行处理
 
-  ![网关示意图]()
+  ![image-20230507011153434](./pictures/图解http/image-5-2.png)
 
 - **隧道**是在相隔甚远的客户端和服务器两者之间进行中转，并保持双方通信连接的应用程序
 
-  ![隧道示意图]()
+  ![隧道示意图](D:\KuaFuPlan\FrontEndLearning\6_Notes\ReadingNotes\pictures\图解http\image-5-3.svg)
 
 
 
@@ -196,4 +196,12 @@
 
 ### 6.1 HTTP报文首部
 
-![请求报文首部]()
+- HTTP 请求报文首部
+
+![请求报文首部](D:\KuaFuPlan\FrontEndLearning\6_Notes\ReadingNotes\pictures\图解http\image-5-4.svg)
+
+- HTTP 响应报文首部
+
+  ![](D:\KuaFuPlan\FrontEndLearning\6_Notes\ReadingNotes\pictures\图解http\image-5-5.svg)
+
+- a
