@@ -198,10 +198,36 @@
 
 - HTTP 请求报文首部
 
-![请求报文首部](D:\KuaFuPlan\FrontEndLearning\6_Notes\ReadingNotes\pictures\图解http\image-5-4.svg)
+  ![请求报文首部](D:\KuaFuPlan\FrontEndLearning\6_Notes\ReadingNotes\pictures\图解http\image-5-4.svg)
 
 - HTTP 响应报文首部
 
   ![](D:\KuaFuPlan\FrontEndLearning\6_Notes\ReadingNotes\pictures\图解http\image-5-5.svg)
 
-- a
+
+
+## 第7章 确保Web安全的HTTPS
+
+### 7.1 HTTP的缺点
+
+- 通过和 SSL（Secure Socket Layer，安全套阶层）或 TLS（Transport Layer Security，安全层传输协议）的组合使用，可以加密 HTTP 的通信内容。**与 SSL 组合使用的 HTTP 称为 HTTPS** （HTTP Secure，超文本传输安全协议）
+
+- 虽然使用 HTTP 协议无法确定通信方，但如果使用 SSL 则可以。SSL 不仅提供加密处理，还使用了一种被称为**证书**的手段
+
+- 由于 HTTP 协议无法证明通信的报文完整性，因此，即使请求或响应的内容遭到篡改，也没有办法获悉
+
+  请求或响应在传输途中，遭攻击者拦截并篡改内容的攻击称为中间人攻击（Man-in-the-middle attack, MITM）
+
+### 7.2 HTTP+加密+认证+完整性保护 = HTTPS
+
+- **HTTP加上加密处理和认证以及完整性保护后便是HTTPS**
+
+- 通常，HTTP直接和TCP通信，当使用SSL时，则演变为先和SSL通信，再由SSL和TCP通信了
+
+  ![](D:\KuaFuPlan\FrontEndLearning\6_Notes\ReadingNotes\pictures\图解http\image-7-1.svg)
+
+- 加密和解密用同一个密钥的方式称为**共享密钥加密（Common key crypto system）**，也被叫做对称密钥加密
+- **公开密钥加密**使用一对非对称的密钥。一把叫做私有密钥（private key），一把叫做公开密钥（public key）。使用公开密钥加密方式，发送密文的一方使用**对方公开密钥**进行加密处理，对方收到被加密信息后，再使用自己的私有密钥进行解密
+
+
+
