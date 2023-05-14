@@ -231,3 +231,50 @@
 
 
 
+## 第9章 基于HTTP的功能追加协议
+
+### 9.2 消除HTTP瓶颈的SPDY
+
+- **Ajax**（Asynchronous JavaScript and XML，异步JavaScript与XML技术）是一种有效利用JavaScript和DOM（Document Object Model，文档对象模型）的操作，以达到局部Web页面替换加载的异步通信手段
+
+### 9.3 使用浏览器进行全双工通信的WebSocket
+
+- WebSocket，即Web浏览器与Web服务器之间全双工通信标准。
+
+
+
+## 第11章 Web的攻击技术
+
+### 11.2 因输出值转义不完全引发的安全漏洞
+
+- **跨站脚本攻击**（Cross-Site Scripting, XSS）是指通过存在安全漏洞的Web网站注册用户的浏览器内运行非法的HTML标签或JavaScript进行的一种攻击
+- **SQL注入**（SQL Injection）是指针对Web应用使用的数据库，通过运行非法的SQL而产生的攻击
+- **OS命令注入攻击**（OS Command injection）是指通过Web应用，执行非法的操作系统命令达到攻击的目的
+- **HTTP首部注入攻击**（HTTP Header Injection）是指攻击者通过在响应首部字段内插入换行，添加任意响应首部或主体的一种攻击
+- **邮件首部注入**（Mail Header Injection）是指Web应用中的邮件发送功能，攻击者通过向邮件首部To或Subject内添加任意非法内容发起的攻击
+- **目录遍历攻击**（Directory Traversal）攻击是指对本无意公开的文件目录，通过非法截断其目录路径后，达成访问目的的一种攻击
+- **远程文件包含漏洞**（Remote File Inclusion）是指当部分脚本内容需要从其他文件读入时，攻击者利用指定外部服务器的URL充当依赖文件，让脚本读取之后，就可运行任意脚本的一种攻击
+
+### 11.3 因设置或设计上的缺陷引发的安全漏洞
+
+- **强制浏览**（Forced Browsing）安全漏洞是指，从安置在Web服务器的公开目录下的文件中，浏览那些原本非自愿公开的文件
+- **不正确的错误消息处理**（Error Handling Vulnerability）的安全漏洞是指，Web应用的错误信息内包含对攻击者有用的信息
+- **开放重定向**（Open Redirect）是一种对指定的任意URL做重定向跳转的功能
+
+#### 11.4 因会话管理疏忽引发的安全漏洞
+
+- **会话劫持**（Session Hijack）是指攻击者通过某种手段拿到了用户的会话ID，并非法使用此会话ID伪装成用户，达到攻击的目的
+- **会话固定攻击**（Session Fixation）会强制用户使用攻击者指定的会话ID，属于被动攻击
+- **跨站点请求伪造**（Cross-Site Request Forgeries, CSRF）攻击是指攻击者通过设置好的陷阱，强制对已完成认证的用户进行非预期的个人信息或设定信息等某些状态更新，属于被动攻击
+
+### 11.5 其他安全漏洞
+
+- **密码破解攻击**（Password Cracking）即算出密码，突破认证
+
+- **点击劫持**（ClickJackding）是指利用透明的按钮或链接做成陷阱，覆盖在Web页面之上，又称为界面伪装（UI Redressing）
+
+- **Dos攻击**（Denial of Service attack）是一种让运行中的服务呈停止状态的攻击，有时也叫做服务停止攻击或拒绝服务攻击
+
+  多台计算机发起的Dos攻击称为**DDoS**攻击（Distributed Denial of Service attack）
+
+- **后门程序**（Backdoor）是指开发设置的隐藏入口，可不按正常步骤使用受限功能
