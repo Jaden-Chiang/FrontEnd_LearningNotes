@@ -25,15 +25,15 @@
 
 - 为了准确无误地将数据送达目标处，TCP协议采用**三次握手**（three-way handshaking）策略。握手过程使用了TCP地标志：SYN（synchronize）和ACK（acknowledgement）
 
-  ![](./img1-4.svg)
+  ![](./pictures/图解http/img1-4.svg)
 
 - DNS协议提供通过域名查找IP地址，或者逆向从IP地址反查域名的服务
 
-  ![](./img1-5.svg)
+  ![](./pictures/图解http/img1-5.svg)
 
 - 各种协议与HTTP协议的区别
 
-  ![](./img1-6.svg)
+  ![](./pictures/图解http/img1-6.svg)
 
 ### 1.7 URI和URL
 
@@ -180,15 +180,15 @@
 
 - **代理**是一种有转发功能的应用程序，它扮演了位于服务端和客户端“中间人”的角色，接收由客户端发送的请求并转发给服务器，同时也接收服务器返回的响应并转发给客户端
 
-  ![代理示意图]()
+  ![image-20230507010640968](./pictures/图解http/image-5-1.png)
 
 - **网关**是转发其他服务器通信数据的服务器，接收从客户端发送来的请求时，它就像自己拥有资源的源服务器一样对请求进行处理
 
-  ![网关示意图]()
+  ![image-20230507011153434](./pictures/图解http/image-5-2.png)
 
 - **隧道**是在相隔甚远的客户端和服务器两者之间进行中转，并保持双方通信连接的应用程序
 
-  ![隧道示意图]()
+  ![隧道示意图](D:\KuaFuPlan\FrontEndLearning\6_Notes\ReadingNotes\pictures\图解http\image-5-3.svg)
 
 
 
@@ -196,4 +196,85 @@
 
 ### 6.1 HTTP报文首部
 
-![请求报文首部]()
+- HTTP 请求报文首部
+
+  ![请求报文首部](D:\KuaFuPlan\FrontEndLearning\6_Notes\ReadingNotes\pictures\图解http\image-5-4.svg)
+
+- HTTP 响应报文首部
+
+  ![](D:\KuaFuPlan\FrontEndLearning\6_Notes\ReadingNotes\pictures\图解http\image-5-5.svg)
+
+
+
+## 第7章 确保Web安全的HTTPS
+
+### 7.1 HTTP的缺点
+
+- 通过和 SSL（Secure Socket Layer，安全套阶层）或 TLS（Transport Layer Security，安全层传输协议）的组合使用，可以加密 HTTP 的通信内容。**与 SSL 组合使用的 HTTP 称为 HTTPS** （HTTP Secure，超文本传输安全协议）
+
+- 虽然使用 HTTP 协议无法确定通信方，但如果使用 SSL 则可以。SSL 不仅提供加密处理，还使用了一种被称为**证书**的手段
+
+- 由于 HTTP 协议无法证明通信的报文完整性，因此，即使请求或响应的内容遭到篡改，也没有办法获悉
+
+  请求或响应在传输途中，遭攻击者拦截并篡改内容的攻击称为中间人攻击（Man-in-the-middle attack, MITM）
+
+### 7.2 HTTP+加密+认证+完整性保护 = HTTPS
+
+- **HTTP加上加密处理和认证以及完整性保护后便是HTTPS**
+
+- 通常，HTTP直接和TCP通信，当使用SSL时，则演变为先和SSL通信，再由SSL和TCP通信了
+
+  ![](D:\KuaFuPlan\FrontEndLearning\6_Notes\ReadingNotes\pictures\图解http\image-7-1.svg)
+
+- 加密和解密用同一个密钥的方式称为**共享密钥加密（Common key crypto system）**，也被叫做对称密钥加密
+- **公开密钥加密**使用一对非对称的密钥。一把叫做私有密钥（private key），一把叫做公开密钥（public key）。使用公开密钥加密方式，发送密文的一方使用**对方公开密钥**进行加密处理，对方收到被加密信息后，再使用自己的私有密钥进行解密
+
+
+
+## 第9章 基于HTTP的功能追加协议
+
+### 9.2 消除HTTP瓶颈的SPDY
+
+- **Ajax**（Asynchronous JavaScript and XML，异步JavaScript与XML技术）是一种有效利用JavaScript和DOM（Document Object Model，文档对象模型）的操作，以达到局部Web页面替换加载的异步通信手段
+
+### 9.3 使用浏览器进行全双工通信的WebSocket
+
+- WebSocket，即Web浏览器与Web服务器之间全双工通信标准。
+
+
+
+## 第11章 Web的攻击技术
+
+### 11.2 因输出值转义不完全引发的安全漏洞
+
+- **跨站脚本攻击**（Cross-Site Scripting, XSS）是指通过存在安全漏洞的Web网站注册用户的浏览器内运行非法的HTML标签或JavaScript进行的一种攻击
+- **SQL注入**（SQL Injection）是指针对Web应用使用的数据库，通过运行非法的SQL而产生的攻击
+- **OS命令注入攻击**（OS Command injection）是指通过Web应用，执行非法的操作系统命令达到攻击的目的
+- **HTTP首部注入攻击**（HTTP Header Injection）是指攻击者通过在响应首部字段内插入换行，添加任意响应首部或主体的一种攻击
+- **邮件首部注入**（Mail Header Injection）是指Web应用中的邮件发送功能，攻击者通过向邮件首部To或Subject内添加任意非法内容发起的攻击
+- **目录遍历攻击**（Directory Traversal）攻击是指对本无意公开的文件目录，通过非法截断其目录路径后，达成访问目的的一种攻击
+- **远程文件包含漏洞**（Remote File Inclusion）是指当部分脚本内容需要从其他文件读入时，攻击者利用指定外部服务器的URL充当依赖文件，让脚本读取之后，就可运行任意脚本的一种攻击
+
+### 11.3 因设置或设计上的缺陷引发的安全漏洞
+
+- **强制浏览**（Forced Browsing）安全漏洞是指，从安置在Web服务器的公开目录下的文件中，浏览那些原本非自愿公开的文件
+- **不正确的错误消息处理**（Error Handling Vulnerability）的安全漏洞是指，Web应用的错误信息内包含对攻击者有用的信息
+- **开放重定向**（Open Redirect）是一种对指定的任意URL做重定向跳转的功能
+
+#### 11.4 因会话管理疏忽引发的安全漏洞
+
+- **会话劫持**（Session Hijack）是指攻击者通过某种手段拿到了用户的会话ID，并非法使用此会话ID伪装成用户，达到攻击的目的
+- **会话固定攻击**（Session Fixation）会强制用户使用攻击者指定的会话ID，属于被动攻击
+- **跨站点请求伪造**（Cross-Site Request Forgeries, CSRF）攻击是指攻击者通过设置好的陷阱，强制对已完成认证的用户进行非预期的个人信息或设定信息等某些状态更新，属于被动攻击
+
+### 11.5 其他安全漏洞
+
+- **密码破解攻击**（Password Cracking）即算出密码，突破认证
+
+- **点击劫持**（ClickJackding）是指利用透明的按钮或链接做成陷阱，覆盖在Web页面之上，又称为界面伪装（UI Redressing）
+
+- **Dos攻击**（Denial of Service attack）是一种让运行中的服务呈停止状态的攻击，有时也叫做服务停止攻击或拒绝服务攻击
+
+  多台计算机发起的Dos攻击称为**DDoS**攻击（Distributed Denial of Service attack）
+
+- **后门程序**（Backdoor）是指开发设置的隐藏入口，可不按正常步骤使用受限功能
