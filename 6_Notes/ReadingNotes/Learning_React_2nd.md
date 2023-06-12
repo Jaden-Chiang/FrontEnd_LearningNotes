@@ -1,3 +1,15 @@
+# Learning React
+
+## Chapter 2. JavaScript for React
+
+### Declaring Variables
+
+#### Template Strings
+
+> Template strings honor whitespace, making it easier to draft up email templates, code examples, or anything else that contains whitespace.
+
+模板字符串支持空格，而使用以往的 `""` 不能进行换行
+
 ### Creating Functions
 
 > One thing to be aware of when deciding between a function declaration and a function expression is that function declarations are hoisted（提升）and function expressions are not.
