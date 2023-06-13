@@ -56,3 +56,35 @@ const sayHi = function() {
      ```
 
   3. 普通函数有一个 `arguements` 参数，是传递的所有参数，而箭头函数没有
+
+### Asynchronous JavaScript
+
+#### Async/Await
+
+> When using `async` and `await`, you need to surround your promise call in a `try...catch` block to handle any errors that may occur due to an unresolved promise.
+
+使用 `async `和 `await` 时要用 `try...catch` 来捕获异常，相当于 `fetch...then...catch` 
+
+```javascript
+const getFakeInfo = async() => {
+    try {
+        let res = await fetch("url");
+        let {results} = res.json();
+    } catch (error) {
+        console.log(error);
+    }
+};
+getFakeInfo();
+```
+
+
+
+### ES6 Modules
+
+> You can scope module variables locally under different variable names
+
+```javascript
+import { print as p, log as l } from './test';
+```
+
+
