@@ -86,5 +86,84 @@ getFakeInfo();
 ```javascript
 import { print as p, log as l } from './test';
 ```
+### Chapter 3. Functional Programming with JavaScript
 
+### Functional Concepts
 
+> The core concepts of functional programming: immutability, purity, data transformation, higher-order functions and recursion.
+
+- **Immutability**
+
+  > In a functional program, data is immutable.
+
+  函数式编程中，应该不改变原始数据，通过“修改数据副本”的方式来更改数据
+
+- **Pure Functions**
+
+  > A *pure function* is a function that returns a value that's computed based on its arguments. Pure functions take at least one argument and always return a value of another function.
+  >
+  > When write functions, try to follow these three rules:
+  >
+  > 1. The function should take in at least one argument.
+  > 2. The function should return a value or another function.
+  > 3. The function should not change or mutate any of its arguments.
+
+  纯函数至少接受一个参数，然后返回一个值或方法。纯函数不应该有副作用（side effect），即执行函数的过程中，修改了DOM结构、其他对象等
+
+- **Data Transformations**
+
+  > `map` and `reduce` are the main weapons of any functional programmer, and JavaScript is no exception.
+
+  `map`  和 `reduce` 是函数式编程的重要工具
+
+  以`map`为例，如果需要根据`state`的不同，来渲染不同的`component`，那么可以写出对应的数组，然后通过`map`来自动生成对应的数组
+
+  ```javascript
+  const data = { one: "OneComp", two: "TwoComp", Three: "ThreeComp" };
+  
+  const result = Object.keys(data).map((item) => ({
+    key: item,
+    comp: data.item,
+  }));
+  
+  console.log(result); /* =>[
+    { key: 'one', comp: undefined },
+    { key: 'two', comp: undefined },
+    { key: 'Three', comp: undefined }
+  ] */
+  ```
+
+  `reduce`的用处也有很多，比如可以对一个数组去重
+
+  ```javascript
+  const colors = ["red", "red", "blue", "green", "blue"];
+  
+  const uniqueColors = colors.reduce(
+    (unique, color) =>
+      unique.indexOf(color) !== -1 ? unique : [...unique, color],
+    []
+  );
+  
+  console.log(uniqueColors); // => [ 'red', 'blue', 'green' ]
+  /*
+  * 注：reduce() 接收两个参数，第一个参数是执行归并操作的函数，第二个参数是可选的，作为归并函数的初始值
+  * 参数函数中，第一个参数为初始值，第二个参数为数组中遍历到的元素
+  */
+  ```
+
+  再来看一个使用`reduce`获取数组最大值的方法
+
+  ```javascript
+  const ages = [21, 18, 42, 40, 64, 63, 34];
+  
+  const maxAge = ages.reduce((max, age) => {
+      console.log(`${max} > ${age} ? ${max > age}`); // 21 > 18 ? true ; 21 > 42 ? false ...
+      return max > age ? max : age
+  })
+  
+  console.log(maxAge); // 64
+  ```
+
+- **Higher-Order Functions**
+
+- **Recursion**
