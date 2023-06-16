@@ -167,3 +167,57 @@ import { print as p, log as l } from './test';
 - **Higher-Order Functions**
 
 - **Recursion**
+
+
+
+## Chapter 4. How React Works
+
+### Page Setup
+
+> ***React*** is the library for creating views. ***ReactDOM*** is the library used to actually render the UI in the browser.
+
+### React Components
+
+> Before there were function components, there were other ways to create components.
+
+- **Tour stop 1: `createClass`**
+
+  ```js
+  const IngredientsList = React.createClass({
+      displayName: "IngredientList",
+      render() {
+          return React.createElement(
+          	"ul",
+              { className: "ingredients" },
+              this.props.items.map((ingredient, i) => React.createElement("li", { key: i }, ingredient)
+            )
+          );
+      }
+  });
+  
+  // Components that used createClass would have a render() method that described the React element(s) that would be returned and rendered.
+  ```
+
+- **Tour stop 2: class components**
+
+  ```javascript
+  class IngredientsList extends React.component {
+      render() {
+          return React.createElement(
+          	"ul",
+              { className: "ingredients" },
+              this.props.items.map((ingredient, i) => React.createElement("li", { key: i }, ingredient))
+          )
+      }
+  }
+  ```
+
+
+
+## Chapter 5. React with JSX
+
+### React Element as JSX
+
+> JSX works with components as well. Simply define the component using the class name.
+
+![](D:\KuaFuPlan\FrontEndLearning\6_Notes\ReadingNotes\pictures\learning_react\5-1.png)
