@@ -221,3 +221,7 @@ import { print as p, log as l } from './test';
 > JSX works with components as well. Simply define the component using the class name.
 
 ![](D:\KuaFuPlan\FrontEndLearning\6_Notes\ReadingNotes\pictures\learning_react\5-1.png)
+
+### Babel
+
+> Since we want to use the latest features of JavaScript along with JSX, we're going to need a way to convert our fancy source code into something that the browser can interpret. This process is called compiling, and it's what `Bebel` is designed to do.
