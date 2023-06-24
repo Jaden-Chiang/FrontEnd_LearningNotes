@@ -221,3 +221,9 @@ import { print as p, log as l } from './test';
 > JSX works with components as well. Simply define the component using the class name.
 
 ![](D:\KuaFuPlan\FrontEndLearning\6_Notes\ReadingNotes\pictures\learning_react\5-1.png)
+
+### Bebel
+
+> JavaScript is an interpreted language: the browser interprets the code as text, so there's no need to compile JavaScript. However, not all browsers support the latest JavaScript syntax, and no browser supports JSX syntax. Since we want to use the latest features of JavaScript along with JSX, we're going to need a way to convert our fancy source code into something that the browser can interpret. This process is called compiling, and it's what **Babel** is designed to do.
+
+JavaScript 是一种解释性语言，浏览器将代码解释为文本，因此无需编译。但是浏览器并不支持所有最新的JS语法以及JSX，因此需要将源码转换为浏览器可以解释的代码，这个过程称为编译，也就是**Babel**设计的目的
