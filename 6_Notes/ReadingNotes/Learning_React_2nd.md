@@ -227,3 +227,15 @@ import { print as p, log as l } from './test';
 > JavaScript is an interpreted language: the browser interprets the code as text, so there's no need to compile JavaScript. However, not all browsers support the latest JavaScript syntax, and no browser supports JSX syntax. Since we want to use the latest features of JavaScript along with JSX, we're going to need a way to convert our fancy source code into something that the browser can interpret. This process is called compiling, and it's what **Babel** is designed to do.
 
 JavaScript 是一种解释性语言，浏览器将代码解释为文本，因此无需编译。但是浏览器并不支持所有最新的JS语法以及JSX，因此需要将源码转换为浏览器可以解释的代码，这个过程称为编译，也就是**Babel**设计的目的
+
+
+
+## Chapter 6. React State Management
+
+### The useState Hook
+
+> `Hooks` contain reusable code logic that is separate from the component tree. They allow us to hook up functionality to our components.
+
+> The most important thing to remember about Hooks is that they can cause the component they're hooked into to rerender. Every time we invoke the `setSelectedStars` function to change the value of `selectedStars`, the `StarRating` function component will be reinvoked by the hook, and it will render again, this time with a new value for `selectedStars`. This is why Hooks are such a killer feature. When data within the hook changes, they have the power to render the component they're hooked into with new data.
+
+`Hooks` 会让被 `hook` 的组件重新渲染，每一次我们调用`setSelectedStars`时，函数组件`StarRating`就会重新渲染一次。这也是为什么`Hooks`有致命的功能——当`hook`内部的数据产生改变时，它们有能力使用新的数据渲染组件
