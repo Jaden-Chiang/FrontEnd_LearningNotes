@@ -239,3 +239,46 @@ JavaScript 是一种解释性语言，浏览器将代码解释为文本，因此
 > The most important thing to remember about Hooks is that they can cause the component they're hooked into to rerender. Every time we invoke the `setSelectedStars` function to change the value of `selectedStars`, the `StarRating` function component will be reinvoked by the hook, and it will render again, this time with a new value for `selectedStars`. This is why Hooks are such a killer feature. When data within the hook changes, they have the power to render the component they're hooked into with new data.
 
 `Hooks` 会让被 `hook` 的组件重新渲染，每一次我们调用`setSelectedStars`时，函数组件`StarRating`就会重新渲染一次。这也是为什么`Hooks`有致命的功能——当`hook`内部的数据产生改变时，它们有能力使用新的数据渲染组件
+
+
+
+## Chapter 7. Enhancing Components with Hooks
+
+### Introducing useEffect
+
+> Think of `useEffect` as being a function that happens after a render. When a render fires, we can access the current state values within our component and use them to do something else. Then, once we render again, the whole thing starts over.
+
+注意`useEfect`起作用的时刻是**after a render**
+
+#### The Dependency Array
+
+> An empty dependency array causes the effect to be invoked only once after the initial render
+
+如果`useEffect`的依赖数组为空, 那么它只会在初次渲染后执行
+
+```javascript
+useEffect(() => {
+    console.log("only once after initial render");
+}, []);
+```
+
+> If you return a function from the effect, the function will be invoked when the component is removed from the tree
+
+如果`useEffect`中返回一个方法, 那么它将在组件卸载时执行
+
+```javascript
+useEffect(() => {
+    welcomeChime.play();
+    return () => goodbyeChime.play();
+}, []);
+```
+
+
+
+
+
+---
+
+## FAQ
+
+- `useEffect`发生作用的时刻？如何取代之前的生命周期函数？
